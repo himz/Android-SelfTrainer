@@ -3,9 +3,13 @@ package com.himz.databases;
 import android.app.Application;
 import android.content.Context;
 
+import com.himz.entities.Exercise;
+import com.himz.entities.Routine;
+import com.himz.entities.RoutineDataForAdapter;
 import com.himz.entities.RoutineDetail;
 import com.himz.helpers.App;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
@@ -20,6 +24,24 @@ public class DashboardManager {
     public static List<RoutineDetail> getAllRoutineForToday(Context ctx) {
         app = ((App)ctx.getApplicationContext());
         return app.db.getAllRoutineForToday();
+    }
+
+
+    public static List<RoutineDataForAdapter> getRoutineDataForAdapter(Context ctx, List<RoutineDetail> routineDetailList) {
+        app = ((App)ctx.getApplicationContext());
+        List<RoutineDataForAdapter> routineDataForAdapterList = new ArrayList<RoutineDataForAdapter>();
+        RoutineDataForAdapter routineDataForAdapter  =  new RoutineDataForAdapter();
+
+        for(RoutineDetail routineDetail:routineDetailList){
+            routineDataForAdapter = new RoutineDataForAdapter();
+            routineDataForAdapter.setRoutineDetail(routineDetail);
+            Exercise ex = app.db.getExerciseForId(routineDetail.getExerciseId());
+            routineDataForAdapter.setExercise(ex);
+            Routine routineData =  app.db.getRoutineForId(routineDetail.getRoutineId());
+            routineDataForAdapter.setRoutineData(routineData);
+            routineDataForAdapterList.add(routineDataForAdapter);
+        }
+        return routineDataForAdapterList;
     }
 
 /*	public static Phrase getPhraseFromID(Context ctx, int phraseID) {

@@ -9,6 +9,8 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
+import com.himz.entities.Exercise;
+import com.himz.entities.Routine;
 import com.himz.entities.RoutineDetail;
 
 import java.util.ArrayList;
@@ -268,6 +270,47 @@ public class LocalDbAdapter {
      */
     public void close() {
         mDbHelper.close();
+    }
+
+    public Exercise getExerciseForId(int exerciseId) {
+        Cursor c = null;
+        c = mDb.rawQuery("select * from " + EXERCISE_TABLE_NAME + " where exerciseId = " + "\"" + exerciseId + "\"", null);
+        Exercise exercise = new Exercise();
+        try {
+            if (c.moveToFirst()) {
+                do {
+                    /* Assuming only one restaurant of same name for now. Else only the last restaurant will be shown */
+                    exercise.setExerciseId(Integer.parseInt(c.getString(0)));
+                    exercise.setExerciseName(c.getString(1));
+                    exercise.setCategory(c.getString(2));
+                    exercise.setMuscleGroup(c.getString(3));
+                } while (c.moveToNext());
+            }
+            c.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return exercise;
+    }
+
+    public Routine getRoutineForId(int routineId) {
+        Cursor c = null;
+        c = mDb.rawQuery("select * from " + ROUTINE_TABLE_NAME + " where routineId = " + "\"" + routineId + "\"", null);
+        Routine routine = new Routine();
+        try {
+            if (c.moveToFirst()) {
+                do {
+                    /* Assuming only one restaurant of same name for now. Else only the last restaurant will be shown */
+                    routine.setRoutineId(Integer.parseInt(c.getString(0)));
+                    routine.setRoutineName(c.getString(1));
+                    routine.setAim(c.getString(2));
+                } while (c.moveToNext());
+            }
+            c.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return routine;
     }
 
 

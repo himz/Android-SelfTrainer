@@ -12,6 +12,7 @@ import android.widget.Toast;
 
 import com.himz.databases.RoutineAdapter;
 import com.himz.databases.DashboardManager;
+import com.himz.entities.RoutineDataForAdapter;
 import com.himz.entities.RoutineDetail;
 import com.himz.helpers.App;
 
@@ -28,11 +29,13 @@ public class ListViewActivity extends ActionBarActivity {
         List<String> data = new ArrayList<String>();
         List<RoutineDetail> routineDetailList = new ArrayList<RoutineDetail>();
         routineDetailList = DashboardManager.getAllRoutineForToday(this.getApplication());
+        List<RoutineDataForAdapter> routineDataForAdapterList = new ArrayList<RoutineDataForAdapter>();
+        routineDataForAdapterList = DashboardManager.getRoutineDataForAdapter(this.getApplication(),routineDetailList);
         for (int i = 1; i <= 10; i++) {
             data.add(String.format("Item %d", i));
         }
         //CustomAdapter adapter = new CustomAdapter( this, data, phraseList);
-        RoutineAdapter adapter = new RoutineAdapter(this, routineDetailList);
+        RoutineAdapter adapter = new RoutineAdapter(this, routineDataForAdapterList);
         ListView listView = (ListView) findViewById(android.R.id.list);
         listView.setAdapter(adapter);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -40,7 +43,7 @@ public class ListViewActivity extends ActionBarActivity {
             public void onItemClick(AdapterView<?> listView, View view,
                                     int pos, long id) {
 
-                RoutineDetail p = (RoutineDetail)listView.getAdapter().getItem(pos);
+                RoutineDataForAdapter p = (RoutineDataForAdapter)listView.getAdapter().getItem(pos);
                 /*int phraseID = p.getId();
                 Intent myintent=new Intent(ListViewActivity.this, MainActivity.class).putExtra("phraseID", phraseID);
                 startActivity(myintent);*/

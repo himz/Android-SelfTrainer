@@ -10,7 +10,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.himz.entities.RoutineDetail;
+import com.himz.entities.RoutineDataForAdapter;
+
 import com.himz.selftrainer.R;
 
 import java.util.HashMap;
@@ -22,16 +23,16 @@ import java.util.Map;
  */
 public class RoutineAdapter extends BaseAdapter {
     private final Context context;
-    private List<RoutineDetail> items;
+    private List<RoutineDataForAdapter> items;
     private final Map<View, Map<Integer, View>> cache = new HashMap<View, Map<Integer, View>>();
     private static boolean flagUpvote = true;
     private static boolean flagDownVote = false;
-    public RoutineAdapter(Context context, List<RoutineDetail> items) {
+    public RoutineAdapter(Context context, List<RoutineDataForAdapter> items) {
         this.context = context;
         this.items = items;
     }
 
-    public void setItemList(List<RoutineDetail> items){
+    public void setItemList(List<RoutineDataForAdapter> items){
         this.items = items;
     }
     @Override
@@ -75,9 +76,9 @@ public class RoutineAdapter extends BaseAdapter {
             ivUpvote = (ImageView) itemMap.get(R.id.imageView);
             ivDownvote = (ImageView) itemMap.get(R.id.imageViewDown);
         }
-        RoutineDetail routineItem = (RoutineDetail) getItem(position);
+        RoutineDataForAdapter routineDataForAdapterItem = (RoutineDataForAdapter) getItem(position);
 
-        final String item = String.valueOf(routineItem.getRoutineId());
+        final String item = String.valueOf(routineDataForAdapterItem.getExercise().getExerciseName());
         tv.setText(item);
         ivUpvote.setOnClickListener(new OnClickListener() {
             @Override
