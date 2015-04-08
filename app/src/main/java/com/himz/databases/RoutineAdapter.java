@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -56,6 +57,7 @@ public class RoutineAdapter extends BaseAdapter {
         TextView tv;
         final ImageView ivUpvote;
         final ImageView ivDownvote;
+        final Button reps[] = new Button[6] ;
         if (v == null) {
             LayoutInflater inflater = (LayoutInflater) context
                     .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -67,19 +69,40 @@ public class RoutineAdapter extends BaseAdapter {
             tv = (TextView) v.findViewById(android.R.id.text1);
             ivUpvote = (ImageView) v.findViewById(R.id.imageView);
             ivDownvote = (ImageView) v.findViewById(R.id.imageViewDown);
+            reps[0] = (Button) v.findViewById(R.id.rep0);
+            reps[1] = (Button) v.findViewById(R.id.rep1);
+            reps[2] = (Button) v.findViewById(R.id.rep2);
+            reps[3] = (Button) v.findViewById(R.id.rep3);
+            reps[4] = (Button) v.findViewById(R.id.rep4);
+            reps[5] = (Button) v.findViewById(R.id.rep5);
+
             itemMap.put(android.R.id.text1, tv);
             itemMap.put(R.id.imageView, ivUpvote);
             itemMap.put(R.id.imageViewDown, ivDownvote);
+            itemMap.put(R.id.rep0, reps[0]);
+            itemMap.put(R.id.rep1, reps[1]);
+            itemMap.put(R.id.rep2, reps[2]);
+            itemMap.put(R.id.rep3, reps[3]);
+            itemMap.put(R.id.rep4, reps[4]);
+            itemMap.put(R.id.rep5, reps[5]);
+
             cache.put(v, itemMap);
         } else {
             tv = (TextView) itemMap.get(android.R.id.text1);
             ivUpvote = (ImageView) itemMap.get(R.id.imageView);
             ivDownvote = (ImageView) itemMap.get(R.id.imageViewDown);
+            reps[0] = (Button) itemMap.get(R.id.rep0);
+            reps[1] = (Button) itemMap.get(R.id.rep1);
+            reps[2] = (Button) itemMap.get(R.id.rep2);
+            reps[3] = (Button) itemMap.get(R.id.rep3);
+            reps[4] = (Button) itemMap.get(R.id.rep4);
+            reps[5] = (Button) itemMap.get(R.id.rep5);
         }
         RoutineDataForAdapter routineDataForAdapterItem = (RoutineDataForAdapter) getItem(position);
 
         final String item = String.valueOf(routineDataForAdapterItem.getExercise().getExerciseName());
         tv.setText(item);
+        
         ivUpvote.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
